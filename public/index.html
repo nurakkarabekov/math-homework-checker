@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Проверка домашки</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Проверка решения по фото</h1>
+
+  <input type="file" id="fileInput" accept="image/*">
+  <br><br>
+  <img id="preview" style="display:none; max-width:300px;">
+  <br>
+  <button id="checkBtn" style="display:none;">Проверить решение</button>
+
+  <div id="loading" style="display:none;">Проверяю, подожди...</div>
+
+  <div id="results"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

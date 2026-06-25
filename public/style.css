@@ -1,0 +1,20 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+.step {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 10px 0;
+}
+.step.correct {
+  border-color: #4caf50;
+  background: #f1f8f1;
+}
+.step.error {
+  border-color: #e53935;
+  background: #fdf1f0;
+}
