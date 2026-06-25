@@ -40,11 +40,13 @@ checkBtn.addEventListener("click", async () => {
     const data = await response.json();
     console.log("Ответ сервера:", data); // пригодится для отладки
 
-    if (data.error) {
+    const errorObj = data.error || (Array.isArray(data) && data[0] && data[0].error);
+    if (errorObj) {
+      const isOverloaded = errorObj.code === 429 || errorObj.code === 503 || errorObj.status === "UNAVAILABLE";
       throw new Error(
-        data.error.code === 429
-          ? "Сервис сейчас перегружен (бесплатный лимит). Подожди минуту и попробуй снова."
-          : "Сервер ИИ ответил ошибкой: " + data.error.message
+        isOverloaded
+          ? "Модель сейчас перегружена. Подожди минуту и попробуй снова."
+          : "Сервер ИИ ответил ошибкой: " + errorObj.message
       );
     }
 
