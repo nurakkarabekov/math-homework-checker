@@ -40,6 +40,14 @@ checkBtn.addEventListener("click", async () => {
     const data = await response.json();
     console.log("Ответ сервера:", data); // пригодится для отладки
 
+    if (data.error) {
+      throw new Error(
+        data.error.code === 429
+          ? "Сервис сейчас перегружен (бесплатный лимит). Подожди минуту и попробуй снова."
+          : "Сервер ИИ ответил ошибкой: " + data.error.message
+      );
+    }
+
     const rawText = data.choices[0].message.content;
     const cleanText = rawText.replace(/```json|```/g, "").trim();
     const parsed = JSON.parse(cleanText);
@@ -47,7 +55,7 @@ checkBtn.addEventListener("click", async () => {
     renderResults(parsed);
   } catch (err) {
     console.error(err);
-    results.innerHTML = "<p>Что-то пошло не так. Открой консоль (F12) и посмотри, что там написано.</p>";
+    results.innerHTML = `<p>⚠️ ${err.message}</p>`;
   } finally {
     loading.style.display = "none";
     checkBtn.disabled = false;
